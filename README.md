@@ -1,1 +1,1 @@
-Prosty generator imion. Wszystkie dane zostały ~~ukradzione~~ pożyczone z Wikipedii przy użyciu skryptu Python wykorzystującego Selenium (Dostępnych [tutaj](https://github.com/generator-imion/skrypty_selenium)).
+Prosty generator imion. Wszystkie dane zostały ~~ukradzione~~ pożyczone z Wikipedii przy użyciu skryptów Python wykorzystującego Selenium (Dostępnych [tutaj](https://github.com/generator-imion/skrypty_selenium)).
