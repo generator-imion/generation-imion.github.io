@@ -1,1 +1,71 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Generator Imion</title>
+		<link rel="stylesheet" href="./style.css" />
+		<script src="./script.js" type="module" defer></script>
+	</head>
+	<body>
+		<h1>Generator Imion</h1>
+		<p>v1 - Wersja ON-LINE</p>
+		<div>
+			<h2>Ustawienia Generatora</h2>
+			<!-- Ilość imion -->
+			<div class="optionContainer">
+				<label for="namemax">Maks. ilość imion</label>
+				<input type="number" name="namemax" id="namemax" value="2" min="1" />
+			</div>
+			<br />
+			<!-- Ilość nazwisk -->
+			<div class="optionContainer">
+				<label for="surnamemax">Maks. ilość nazwisk</label>
+				<input
+					type="number"
+					name="surnamemax"
+					id="surnamemax"
+					value="2"
+					min="1"
+				/>
+			</div>
+			<br />
+			<div class="optionContainer">
+				<label for="gender">Płeć</label>
+				<select name="gender" id="gender">
+					<option value="both">Obie</option>
+					<option value="male">Mężczyna</option>
+					<option value="female">Kobieta</option>
+				</select>
+			</div>
+		</div>
+
+		<div>
+			<h2>Generowanie</h2>
+
+			<div class="optionContainer">
+				<label for="amount">Ilość</label>
+				<input type="number" name="amount" id="amount" value="10" />
+
+				<select name="mode" id="mode">
+					<option value="reset">Od nowa</option>
+					<option value="add">Dodaj</option>
+				</select>
+			</div>
+
+			<br />
+
+			<button id="start">Generuj!</button>
+			<button id="save">Zapisz do pliku</button>
+			<br />
+			<textarea
+				name="result"
+				id="result"
+				cols="80"
+				rows="28"
+				disabled
+			></textarea>
+		</div>
+	</body>
+</html>
