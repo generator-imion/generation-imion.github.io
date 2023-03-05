@@ -17,7 +17,6 @@ function getRandomInt(min, max) {
 // Pick items from list randomly and make a string from them
 function getStringFromListItems(list, maxAmount) {
 	const amount = getRandomInt(1, maxAmount);
-	console.log(amount);
 	let string = '';
 	for (var i = 0; i < amount; i++) {
 		string += randomInList(list) + ' ';
@@ -35,7 +34,6 @@ function getRandomFemaleSurname(maxAmount) {
 	surnames.forEach((surname) => {
 		let new_surname = surname;
 		if (surname.endsWith('i')) new_surname = surname.slice(0, -1) + 'a';
-		console.log(new_surname + '   sssssssssss');
 
 		new_surnames += new_surname + ' ';
 	});
@@ -49,20 +47,23 @@ let result = document.getElementById('result');
 const generate = (gender, maxNames, maxSurnames, mode, amount) => {
 	let results = '';
 	for (var i = 0; i < amount; i++) {
+		let my_gender = gender;
 		console.log(
 			`generating with gender ${gender}, max names ${maxNames} and max surnames ${maxSurnames}`
 		);
 
 		let name;
-		if (gender == 'both') gender = randomInList(['male', 'female']);
+		if (gender == 'both') my_gender = randomInList(['male', 'female']);
 
-		if (gender == 'male') name = getStringFromListItems(MALE_NAMES, maxNames);
-		if (gender == 'female')
+		if (my_gender == 'male')
+			name = getStringFromListItems(MALE_NAMES, maxNames);
+		if (my_gender == 'female')
 			name = getStringFromListItems(FEMALE_NAMES, maxNames);
 		let surname;
 
-		if (gender == 'male') surname = getStringFromListItems(SURNAMES, maxNames);
-		if (gender == 'female') surname = getRandomFemaleSurname(maxNames);
+		if (my_gender == 'male')
+			surname = getStringFromListItems(SURNAMES, maxNames);
+		if (my_gender == 'female') surname = getRandomFemaleSurname(maxNames);
 
 		results += `${name} ${surname}\n`;
 	}
@@ -77,6 +78,15 @@ let maxSurnames = 2;
 let amount = 10;
 
 let mode = 'reset';
+
+const size_texarea = () => {
+	result.cols = window.innerWidth / 18 + 10;
+
+	result.rows = (window.screen.height - 200) / 30;
+};
+
+document.body.onresize = size_texarea;
+document.body.onload = size_texarea;
 
 // Value binding stuff
 document.getElementById('gender').onchange = (ev) => {
@@ -110,4 +120,5 @@ document.getElementById('save').onclick = () => {
 	a.download = 'imiona.txt';
 	a.href = window.URL.createObjectURL(bb);
 	a.click();
+	console.log('downloading');
 };

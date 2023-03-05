@@ -10,11 +10,11 @@ p {
 }
 
 h2 {
-	margin-top: 2ex;
+	margin-top: 1ex;
 }
 
 .optionContainer {
-	margin: 1ex;
+	margin: 0ex;
 }
 
 textarea {
