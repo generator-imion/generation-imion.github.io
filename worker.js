@@ -67,7 +67,7 @@ const generate = (
 		if (my_gender == 'female')
 			name = getStringFromListItems(FEMALE_NAMES, maxNames);
 
-		let surname = getFilteredSurname(maxSurnames, gender, SURNAMES);
+		let surname = getFilteredSurname(maxSurnames, my_gender, SURNAMES);
 		const final = `${name} ${surname}||`;
 		if (final != '||') results += final;
 	}
