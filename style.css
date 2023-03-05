@@ -14,10 +14,11 @@ h2 {
 }
 
 .optionContainer {
-	margin: 0ex;
+	margin: 0.1ex;
 }
 
 textarea {
 	margin: 2ex;
 	resize: none;
+	width: clamp(300px, 50%, 60%);
 }

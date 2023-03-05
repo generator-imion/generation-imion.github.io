@@ -79,14 +79,14 @@ let amount = 10;
 
 let mode = 'reset';
 
-const size_texarea = () => {
-	result.cols = window.innerWidth / 18 + 10;
+// const size_texarea = () => {
+// 	result.cols = window.innerWidth / 18 + 10;
 
-	result.rows = (window.screen.height - 200) / 30;
-};
+// 	result.rows = (window.screen.height - ) / 30;
+// };
 
-document.body.onresize = size_texarea;
-document.body.onload = size_texarea;
+// document.body.onresize = size_texarea;
+// document.body.onload = size_texarea;
 
 // Value binding stuff
 document.getElementById('gender').onchange = (ev) => {
