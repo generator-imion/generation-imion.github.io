@@ -21,64 +21,73 @@
 		<meta content="#557D52" data-react-helmet="true" name="theme-color" />
 	</head>
 	<body>
-		<h1>Generator Imion</h1>
-		<p>v1.1 - Wersja ON-LINE</p>
-		<div>
-			<h2>Ustawienia Generatora</h2>
-			<!-- Ilość imion -->
-			<div class="optionContainer">
-				<label for="namemax">Maks. ilość imion</label>
-				<input type="number" name="namemax" id="namemax" value="2" min="1" />
+		<div id="settings">
+			<h1>Generator Imion</h1>
+			<p>v1.3 - Wersja ON-LINE</p>
+			<div>
+				<h2>Ustawienia</h2>
+				<div class="option">
+					<label for="namemax">Maksymalna ilość imion: </label>
+					<input type="number" name="namemax" id="namemax" value="2" min="1" />
+				</div>
+				<div class="option">
+					<label for="surnamemax">Maksymalna ilość nazwisk: </label>
+					<input
+						type="number"
+						name="surnamemax"
+						id="surnamemax"
+						value="2"
+						min="1"
+					/>
+				</div>
+				<br />
+				<div class="option">
+					<label for="gender">Płeć: </label>
+					<select name="gender" id="gender">
+						<option value="both">Obie</option>
+						<option value="male">Mężczyzni</option>
+						<option value="both">Kobiety</option>
+					</select>
+				</div>
 			</div>
-			<br />
-			<!-- Ilość nazwisk -->
-			<div class="optionContainer">
-				<label for="surnamemax">Maks. ilość nazwisk</label>
-				<input
-					type="number"
-					name="surnamemax"
-					id="surnamemax"
-					value="2"
-					min="1"
-				/>
+			<br /><br />
+			<div>
+				<h2>Generowanie</h2>
+				<div class="option">
+					<label for="amount">Ilość: </label>
+					<input type="number" name="amount" id="amount" min="1" value="10" />
+				</div>
+
+				<div class="option">
+					<label>Tryb wypisywania: </label>
+					<select name="mode" id="mode">
+						<option value="reset">Od nowa</option>
+						<option value="add">Dodaj</option>
+					</select>
+				</div>
 			</div>
-			<br />
-			<div class="optionContainer">
-				<label for="gender">Płeć</label>
-				<select name="gender" id="gender">
-					<option value="both">Obie</option>
-					<option value="male">Mężczyna</option>
-					<option value="female">Kobieta</option>
-				</select>
+			<br /><br />
+			<div>
+				<h2>Kontrola</h2>
+				<div class="option">
+					<button id="start">Generuj</button>
+				</div>
+				<div class="option">
+					<button id="save">Zapisz do pliku</button>
+				</div>
+			</div>
+			<br /><br />
+			<div>
+				<h2>Info</h2>
+				<div class="option">
+					<p id="gen_amount">Ilość imion: 0</p>
+				</div>
+				<div class="option">
+					<p id="mb_amount">Rozmiar pliku: 0mb</p>
+				</div>
 			</div>
 		</div>
 
-		<div>
-			<h2>Generowanie</h2>
-
-			<div class="optionContainer">
-				<label for="amount">Ilość</label>
-				<input type="number" name="amount" id="amount" value="10" />
-
-				<select name="mode" id="mode">
-					<option value="reset">Od nowa</option>
-					<option value="add">Dodaj</option>
-				</select>
-			</div>
-
-			<br />
-
-			<button id="start">Generuj!</button>
-			<button id="save">Zapisz do pliku</button>
-			<br />
-			<br />
-			<textarea
-				name="result"
-				id="result"
-				cols="80"
-				rows="28"
-				disabled
-			></textarea>
-		</div>
+		<textarea name="result" id="result" cols="80" rows="20" disabled></textarea>
 	</body>
 </html>

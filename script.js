@@ -1,94 +1,27 @@
 import { SURNAMES } from './surnames.js';
-import { MALE_NAMES } from './male_names.js';
 import { FEMALE_NAMES } from './female_names.js';
+import { MALE_NAMES } from './male_names.js';
 
-// Get random item from list
-function randomInList(list) {
-	return list[Math.floor(Math.random() * list.length)];
-}
-
-// Get random value in range
-function getRandomInt(min, max) {
-	min = Math.ceil(min);
-	max = Math.floor(max);
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-// Pick items from list randomly and make a string from them
-function getStringFromListItems(list, maxAmount) {
-	const amount = getRandomInt(1, maxAmount);
-	let string = '';
-	for (var i = 0; i < amount; i++) {
-		string += randomInList(list) + ' ';
-	}
-
-	return string.slice(0, -1);
-}
-
-// Surname generator, female filter
-function getRandomFemaleSurname(maxAmount) {
-	let surname_string = getStringFromListItems(SURNAMES, maxAmount);
-
-	let surnames = surname_string.split(' ');
-	let new_surnames = '';
-	surnames.forEach((surname) => {
-		let new_surname = surname;
-		if (surname.endsWith('i')) new_surname = surname.slice(0, -1) + 'a';
-
-		new_surnames += new_surname + ' ';
-	});
-
-	return new_surnames.slice(0, -1);
-}
-
-let result = document.getElementById('result');
-
-// Generate random name
-const generate = (gender, maxNames, maxSurnames, mode, amount) => {
-	let results = '';
-	for (var i = 0; i < amount; i++) {
-		let my_gender = gender;
-		console.log(
-			`generating with gender ${gender}, max names ${maxNames} and max surnames ${maxSurnames}`
-		);
-
-		let name;
-		if (gender == 'both') my_gender = randomInList(['male', 'female']);
-
-		if (my_gender == 'male')
-			name = getStringFromListItems(MALE_NAMES, maxNames);
-		if (my_gender == 'female')
-			name = getStringFromListItems(FEMALE_NAMES, maxNames);
-		let surname;
-
-		if (my_gender == 'male')
-			surname = getStringFromListItems(SURNAMES, maxNames);
-		if (my_gender == 'female') surname = getRandomFemaleSurname(maxNames);
-
-		results += `${name} ${surname}\n`;
-	}
-
-	if (mode == 'reset') result.textContent = results;
-	else result.textContent += results;
-};
-
+// Values
 let gender = 'both';
 let maxNames = 2;
 let maxSurnames = 2;
 let amount = 10;
 
+const worker = new Worker('worker.js');
+
+let generated = 0;
+
 let mode = 'reset';
 
-// const size_texarea = () => {
-// 	result.cols = window.innerWidth / 18 + 10;
+// Result textarea binding
+let result = document.getElementById('result');
+// Amount binding
+let generated_amount = document.getElementById('gen_amount');
+// File size binding
+let file_size = document.getElementById('mb_amount');
 
-// 	result.rows = (window.screen.height - ) / 30;
-// };
-
-// document.body.onresize = size_texarea;
-// document.body.onload = size_texarea;
-
-// Value binding stuff
+//#region Element binding
 document.getElementById('gender').onchange = (ev) => {
 	gender = ev.target.value;
 };
@@ -98,20 +31,50 @@ document.getElementById('mode').onchange = (ev) => {
 };
 
 document.getElementById('amount').onchange = (ev) => {
-	amount = ev.target.value;
+	amount = Number(ev.target.value);
 };
 
 document.getElementById('namemax').onchange = (ev) => {
-	maxNames = ev.target.value;
+	maxNames = Number(ev.target.value);
 };
 
 document.getElementById('surnamemax').onchange = (ev) => {
-	maxSurnames = ev.target.value;
+	maxSurnames = Number(ev.target.value);
+};
+//#endregion
+
+//#region "Generate" button binding
+document.getElementById('start').onclick = () => {
+	if (mode == 'reset') generated = amount;
+	if (mode == 'add') generated += amount;
+	generated_amount.innerText = 'Ilość imion: ' + generated;
+	file_size.innerText = 'Rozmiar pliku: ' + get_size() / 1000000 + 'mb';
+
+	// generate(gender, maxNames, maxSurnames, mode, amount);
+	worker.postMessage(
+		`${gender}||${maxNames}||${maxSurnames}||${amount}||${SURNAMES}||${FEMALE_NAMES}||${MALE_NAMES}`
+	);
 };
 
-// Start button bind
-document.getElementById('start').onclick = () => {
-	generate(gender, maxNames, maxSurnames, mode, amount);
+//#endregion
+
+//#region Receive from worker
+worker.onmessage = (msg) => {
+	// if (mode == 'reset') result.innerText = msg.data;
+	// if (mode == 'add') result.innerText += msg.data;
+	const items = msg.data.split('||');
+	console.log(msg.data);
+	console.log(items);
+
+	for (var i = 0; i < items.length; i++) {
+		result.textContent += items[i] + '\n';
+	}
+};
+//#endregion
+
+//#region Size & Save to file
+const get_size = () => {
+	return new Blob([result.textContent], { type: 'text/plain' }).size;
 };
 
 document.getElementById('save').onclick = () => {
@@ -122,3 +85,4 @@ document.getElementById('save').onclick = () => {
 	a.click();
 	console.log('downloading');
 };
+//#endregion

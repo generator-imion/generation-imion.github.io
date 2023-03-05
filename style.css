@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 * {
 	font-family: 'Source Code Pro', monospace;
-	text-align: center;
+	text-align: left;
 }
 
 h1,
@@ -9,16 +9,73 @@ p {
 	margin: 0;
 }
 
+.option {
+	margin-top: 5px;
+}
+
 h2 {
-	margin-top: 1ex;
+	margin-top: 3ex;
+	font-size: larger;
+	color: #2e2e2e;
+	font-weight: 400;
 }
 
-.optionContainer {
-	margin: 0.1ex;
+@media only screen and (max-width: 400px) {
+	textarea {
+		width: calc(100% - 6px);
+		height: 50vh;
+	}
+	#settings {
+		background-color: rgb(233, 219, 193);
+		left: 0;
+		width: calc(100% - 15px);
+		padding-left: 15px;
+		padding-top: 10px;
+	}
+
+	body {
+		margin: 0;
+		overflow-x: hidden;
+	}
 }
 
-textarea {
-	margin: 2ex;
-	resize: none;
-	width: clamp(300px, 50%, 60%);
+@media only screen and (min-width: 1224px) {
+	textarea {
+		position: absolute;
+		left: calc(50vw - 15px);
+		top: 0;
+		width: 50vw;
+		font-size: large;
+		padding-left: 15px;
+		padding-top: 10px;
+		line-height: 1.5;
+		height: 100vh;
+		margin: 0;
+		resize: none;
+		width: clamp(300px, 50%, 60%);
+	}
+
+	#settings {
+		background-color: rgb(233, 219, 193);
+		left: 0;
+		width: calc(50vw - 30px);
+		height: 100vh;
+		padding-left: 15px;
+		padding-top: 10px;
+	}
+
+	body {
+		margin: 0;
+		scroll-behavior: smooth;
+		overflow: hidden;
+	}
+}
+
+h1,
+h2,
+p,
+label,
+br,
+input[type='number'] {
+	user-select: none;
 }
