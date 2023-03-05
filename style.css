@@ -22,13 +22,16 @@ h2 {
 
 @media only screen and (max-width: 400px) {
 	textarea {
-		width: calc(100% - 6px);
-		height: 50vh;
+		padding-left: 15px;
+		padding-top: 10px;
+		width: calc(100% - 6px - 15px);
+		height: 100vh;
 	}
 	#settings {
 		background-color: rgb(233, 219, 193);
 		left: 0;
 		width: calc(100% - 15px);
+		height: 100vh;
 		padding-left: 15px;
 		padding-top: 10px;
 	}

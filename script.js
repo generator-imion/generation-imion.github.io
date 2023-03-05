@@ -63,9 +63,10 @@ worker.onmessage = (msg) => {
 	// if (mode == 'reset') result.innerText = msg.data;
 	// if (mode == 'add') result.innerText += msg.data;
 	const items = msg.data.split('||');
-	console.log(msg.data);
-	console.log(items);
+	// console.log(msg.data);
+	// console.log(items);
 
+	if (mode == 'reset') result.textContent = '';
 	for (var i = 0; i < items.length; i++) {
 		result.textContent += items[i] + '\n';
 	}

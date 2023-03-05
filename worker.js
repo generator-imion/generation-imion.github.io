@@ -21,21 +21,26 @@ function getStringFromListItems(list, maxAmount) {
 	return string.slice(0, -1);
 }
 
-// Surname generator, female filter
-function getRandomFemaleSurname(maxAmount, SURNAMES) {
-	let surname_string = getStringFromListItems(SURNAMES, maxAmount);
+const getFilteredSurname = (max, gender, SURNAMES) => {
+	let surname = '';
 
-	let surnames = surname_string.split(' ');
-	let new_surnames = '';
-	surnames.forEach((surname) => {
-		let new_surname = surname;
-		if (surname.endsWith('i')) new_surname = surname.slice(0, -1) + 'a';
+	for (var i = 0; i < getRandomInt(1, max); i++) {
+		let current = randomInList(SURNAMES);
 
-		new_surnames += new_surname + ' ';
-	});
+		if (current.endsWith('scy')) {
+			if (gender == 'female') current = current.slice(0, -3) + 'ka';
+			if (gender == 'male') current = current.slice(0, -3) + 'ki';
+		} else if (current.endsWith('i') && gender == 'female') {
+			current = current.slice(0, -1) + 'a';
+		} else if (current.endsWith('wie')) {
+			current = current.slice(0, -3);
+		}
 
-	return new_surnames.slice(0, -1);
-}
+		surname += `${current} `;
+	}
+
+	return surname;
+};
 
 // Generate random name
 const generate = (
@@ -61,13 +66,8 @@ const generate = (
 			name = getStringFromListItems(MALE_NAMES, maxNames);
 		if (my_gender == 'female')
 			name = getStringFromListItems(FEMALE_NAMES, maxNames);
-		let surname;
 
-		if (my_gender == 'male')
-			surname = getStringFromListItems(SURNAMES, maxNames);
-		if (my_gender == 'female')
-			surname = getRandomFemaleSurname(maxNames, SURNAMES);
-
+		let surname = getFilteredSurname(maxSurnames, gender, SURNAMES);
 		const final = `${name} ${surname}||`;
 		if (final != '||') results += final;
 	}
